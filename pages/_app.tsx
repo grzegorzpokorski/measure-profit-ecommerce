@@ -4,7 +4,7 @@ import { useState } from "react";
 import "../styles/style.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [service, setService] = useState<ServicesType>("allegrolokalnie");
+  const [service, setService] = useState<ServicesType>("allegro");
 
   return (
     <ServiceContext.Provider value={{ service, setService }}>
