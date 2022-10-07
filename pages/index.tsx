@@ -1,9 +1,12 @@
-import { useEffect } from "react";
 import { Layout } from "../components/layout/Layout";
-import { useServiceContext } from "../context/ServiceContext";
+import { SwitchService } from "../components/switchService/SwitchService";
 
 const Home = () => {
-  return <Layout></Layout>;
+  return (
+    <Layout>
+      <SwitchService />
+    </Layout>
+  );
 };
 
 export default Home;
