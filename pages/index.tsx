@@ -1,17 +1,24 @@
 import cn from "classnames";
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Layout } from "../components/layout/Layout";
 import { ServicesType, useServiceContext } from "../context/ServiceContext";
 
+type ValuesType = {
+  service: ServicesType;
+  przesylka: number;
+  cenaZakupu: number;
+  cenaSprzedazy: number;
+};
+
 const Home = () => {
   const { service, setService } = useServiceContext();
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<ValuesType>({
     service: service,
     przesylka: 0,
     cenaZakupu: 0,
     cenaSprzedazy: 0,
   });
-  const [wynik, setWynik] = useState(0);
+  const [wynik, setWynik] = useState<number | null>(null);
 
   const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,8 +59,8 @@ const Home = () => {
     }
   };
 
-  const handleChangeValue = (e) => {
-    if (e.target.name === "service") {
+  const handleChangeValue = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    if (e.currentTarget.name === "service") {
       return setValues({ ...values, [e.target.name]: e.target.value });
     }
     setValues({ ...values, [e.target.name]: Number(e.target.value) });
@@ -187,6 +194,7 @@ const Home = () => {
             Oblicz
           </button>
           {wynik && <p>{wynik}</p>}
+          {values.cenaZakupu && wynik && <p>{(wynik / values.cenaZakupu) * 100} %</p>}
         </fieldset>
       </form>
     </Layout>
