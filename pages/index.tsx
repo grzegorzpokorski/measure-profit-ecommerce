@@ -198,7 +198,7 @@ const Home = () => {
             Oblicz
           </button>
           {wynik && <p>{wynik}</p>}
-          {values.cenaZakupu && wynik && <p>{(wynik / values.cenaZakupu) * 100} %</p>}
+          {values.cenaZakupu && wynik && <p>{((wynik / values.cenaZakupu) * 100).toFixed(2)} %</p>}
         </fieldset>
       </form>
     </Layout>
