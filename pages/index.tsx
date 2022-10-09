@@ -26,10 +26,12 @@ const Home = () => {
     switch (service) {
       case "allegro": {
         if (values["cenaZakupu"] && values["cenaSprzedazy"]) {
-          const wynikKwota = Math.floor(
-            values["cenaSprzedazy"] -
+          const wynikKwota = Number(
+            (
+              values["cenaSprzedazy"] -
               ((values["cenaSprzedazy"] + values["przesylka"]) * 6) / 100 -
-              values["cenaZakupu"],
+              values["cenaZakupu"]
+            ).toFixed(2),
           );
 
           setWynik(wynikKwota);
@@ -38,10 +40,12 @@ const Home = () => {
       }
       case "allegrolokalnie": {
         if (values["cenaZakupu"] && values["cenaSprzedazy"]) {
-          const wynikKwota = Math.floor(
-            values["cenaSprzedazy"] -
+          const wynikKwota = Number(
+            (
+              values["cenaSprzedazy"] -
               ((values["cenaSprzedazy"] + values["przesylka"]) * 4.9) / 100 -
-              values["cenaZakupu"],
+              values["cenaZakupu"]
+            ).toFixed(2),
           );
 
           setWynik(wynikKwota);
