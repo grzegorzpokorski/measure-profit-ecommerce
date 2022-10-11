@@ -1,8 +1,13 @@
 import { useEffect } from "react";
-import { useServiceContext } from "../context/ServiceContext";
+import { Layout } from "../components/layout/Layout";
+import { Form } from "../components/form/Form";
 
 const Home = () => {
-  return <>hello</>;
+  return (
+    <Layout>
+      <Form />
+    </Layout>
+  );
 };
 
 export default Home;
