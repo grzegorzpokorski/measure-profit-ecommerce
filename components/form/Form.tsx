@@ -10,8 +10,8 @@ type NazwaSerwisuType = "allegro" | "allegrolokalnie" | "olx";
 type ValuesProps = {
   nazwaSerwisu: NazwaSerwisuType;
   typWysylki: number;
-  cenaZakupu: number;
-  cenaSprzedazy: number;
+  cenaZakupu: number | null;
+  cenaSprzedazy: number | null;
 };
 
 export type ResultType = {
@@ -23,8 +23,8 @@ export const Form = () => {
   const [values, setValues] = useState<ValuesProps>({
     nazwaSerwisu: "allegro",
     typWysylki: 0,
-    cenaZakupu: 0,
-    cenaSprzedazy: 0,
+    cenaZakupu: null,
+    cenaSprzedazy: null,
   });
   const [result, setResult] = useState<ResultType | null>(null);
   const [formError, setFormError] = useState<boolean>(false);
@@ -49,6 +49,8 @@ export const Form = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (values.cenaZakupu == null || values.cenaSprzedazy == null) return setFormError(true);
 
     switch (values.nazwaSerwisu) {
       case "allegro":
