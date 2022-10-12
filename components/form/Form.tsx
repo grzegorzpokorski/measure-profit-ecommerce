@@ -91,7 +91,7 @@ export const Form = () => {
 
   return (
     <form
-      className={"w-full md:w-2/3 lg:w-1/2 mx-auto bg-zinc-300"}
+      className={"w-full md:w-2/3 lg:w-1/2 mx-auto bg-zinc-300 mt-2"}
       onSubmit={(e) => handleSubmit(e)}
     >
       <fieldset className={"p-8 flex flex-col gap-4"}>
