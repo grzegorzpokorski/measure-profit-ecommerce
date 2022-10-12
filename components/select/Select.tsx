@@ -1,8 +1,15 @@
+import { ChangeEvent } from "react";
+
+type OptionProps = {
+  label: string;
+  value: string | number;
+};
+
 type SelectProps = {
   label: string;
   name: string;
-  onChange: () => void;
-  options: string[];
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  options: OptionProps[];
 };
 
 export const Select = ({ onChange, label, name, options }: SelectProps) => {
@@ -11,17 +18,13 @@ export const Select = ({ onChange, label, name, options }: SelectProps) => {
       <label htmlFor={`form-${name}`}>{label}</label>
       <select onChange={onChange} name={name} id={`form-${name}`}>
         {options.map((option) => (
-          <Option option={option} key={option} />
+          <Option key={option.label} {...option} />
         ))}
       </select>
     </div>
   );
 };
 
-type OptionProps = {
-  option: string;
-};
-
-const Option = ({ option }: OptionProps) => {
-  return <option value={option}>{option}</option>;
+const Option = ({ label, value }: OptionProps) => {
+  return <option value={value}>{label}</option>;
 };
