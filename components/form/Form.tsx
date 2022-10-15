@@ -1,20 +1,59 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { SelectInput } from "../inputs/SelectInput";
 import { SubmitInput } from "../inputs/SubmitInput";
 import { TextInput } from "../inputs/TextInput";
 
-export const floatValidationPattern = "/^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$/";
+export const floatValidationPattern = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/;
+
+export type ValidFieldsType = {
+  fee: boolean;
+  shipment: boolean;
+  purchasePrice: boolean | null;
+  sellingPrice: boolean | null;
+};
 
 export const Form = () => {
-  const [validForm, setValidForm] = useState<boolean>(true);
+  const [validForm, setValidForm] = useState<boolean>(false);
+  const [validFields, setValidFields] = useState<ValidFieldsType>({
+    fee: true,
+    shipment: true,
+    purchasePrice: null,
+    sellingPrice: null,
+  });
+
+  useEffect(() => {
+    if (Object.values(validFields).includes(false) || Object.values(validFields).includes(null)) {
+      setValidForm(false);
+    } else {
+      setValidForm(true);
+    }
+  }, [validFields]);
 
   const refFee = useRef<HTMLSelectElement | null>(null);
   const refShipment = useRef<HTMLSelectElement | null>(null);
   const refPurchasePrice = useRef<HTMLInputElement | null>(null);
   const refSellingPrice = useRef<HTMLInputElement | null>(null);
 
+  const [result, setResult] = useState<{ amount: number; percentage: number } | null>(null);
+
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault();
+
+    if (!validForm) return;
+
+    const calculation =
+      Number(refSellingPrice.current?.value) -
+      Number(refPurchasePrice.current?.value) -
+      ((Number(refSellingPrice.current?.value) + Number(refShipment.current?.value)) *
+        Number(refFee.current?.value)) /
+        100;
+
+    setResult({
+      amount: Number(calculation.toFixed(2)),
+      percentage: Number(
+        ((calculation / Number(refPurchasePrice.current?.value)) * 100).toFixed(2),
+      ),
+    });
   };
 
   return (
@@ -27,6 +66,8 @@ export const Form = () => {
           validation={{
             pattern: floatValidationPattern,
             message: "Upewnij się, że wprowadzono liczbę",
+            setValidFields: setValidFields,
+            validFields: validFields,
           }}
           options={[
             {
@@ -50,6 +91,8 @@ export const Form = () => {
           validation={{
             pattern: floatValidationPattern,
             message: "Upewnij się, że wprowadzono liczbę",
+            setValidFields: setValidFields,
+            validFields: validFields,
           }}
           options={[
             {
@@ -74,6 +117,8 @@ export const Form = () => {
           validation={{
             pattern: floatValidationPattern,
             message: "Upewnij się, że wprowadzono liczbę",
+            setValidFields: setValidFields,
+            validFields: validFields,
           }}
           ref={refPurchasePrice}
         />
@@ -84,10 +129,18 @@ export const Form = () => {
           validation={{
             pattern: floatValidationPattern,
             message: "Upewnij się, że wprowadzono liczbę",
+            setValidFields: setValidFields,
+            validFields: validFields,
           }}
           ref={refSellingPrice}
         />
         <SubmitInput value="oblicz" />
+        {result && (
+          <>
+            <p>Zysk kwotowo: {result.amount} PLN</p>
+            <p>Zysk procentowo: {result.percentage} %</p>
+          </>
+        )}
       </fieldset>
     </form>
   );

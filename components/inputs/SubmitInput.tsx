@@ -7,7 +7,9 @@ export const SubmitInput = ({ value }: SubmitInputType) => {
     <input
       type="submit"
       value={value}
-      className={"p-2 bg-zinc-600 text-white hover:bg-zinc-700 focus:bg-zinc-700 cursor-pointer"}
+      className={
+        "p-2 bg-zinc-600 text-white hover:bg-zinc-700 focus:bg-zinc-700 disabled:bg-red-500 cursor-pointer"
+      }
     />
   );
 };

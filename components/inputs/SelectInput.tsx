@@ -1,4 +1,5 @@
-import { forwardRef, RefObject } from "react";
+import { Dispatch, forwardRef, RefObject, SetStateAction, useState } from "react";
+import { ValidFieldsType } from "../form/Form";
 
 export type FeeType = {
   label: "allegro" | "allegrolokalnie" | "olx";
@@ -14,8 +15,10 @@ type SelectInputProps = {
   name: string;
   label: string;
   validation: {
-    pattern: string;
+    pattern: RegExp;
     message: string;
+    setValidFields: Dispatch<SetStateAction<ValidFieldsType>>;
+    validFields: ValidFieldsType;
   };
   options?: FeeType[] | ShipmentType[];
   ref: RefObject<HTMLSelectElement>;
@@ -24,10 +27,31 @@ type SelectInputProps = {
 export const SelectInput = forwardRef<HTMLSelectElement, SelectInputProps>(
   ({ name, label, validation, options }, ref) => {
     const inputId = `${name}`;
+    const [showError, setShowError] = useState<boolean>(false);
+    const handleChange = (target: EventTarget & HTMLSelectElement) => {
+      const re = new RegExp(validation.pattern);
+      const isValid = !re.test(target.value.trim());
+
+      if (isValid) {
+        validation.setValidFields({ ...validation.validFields, [target.name]: false });
+        setShowError(true);
+      }
+      if (!isValid) {
+        validation.setValidFields({ ...validation.validFields, [target.name]: true });
+        setShowError(false);
+      }
+    };
+
     return (
       <div className={"flex flex-col gap-2"}>
         <label htmlFor={inputId}>{label}</label>
-        <select name={name} id={inputId} ref={ref} className={"p-2"}>
+        <select
+          name={name}
+          id={inputId}
+          ref={ref}
+          onChange={(e) => handleChange(e.target)}
+          className={"p-2"}
+        >
           {options &&
             options.map((option) => (
               <option key={option.label} value={option.value}>
@@ -35,7 +59,10 @@ export const SelectInput = forwardRef<HTMLSelectElement, SelectInputProps>(
               </option>
             ))}
         </select>
+        {showError && <p>{validation.message}</p>}
       </div>
     );
   },
 );
+
+SelectInput.displayName = "SelectInput";
