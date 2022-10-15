@@ -1,23 +1,9 @@
 import { ReactNode } from "react";
-import { useServiceContext } from "../../context/ServiceContext";
-import cn from "classnames";
 
 type LayoutProps = {
   children?: ReactNode;
 };
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { service } = useServiceContext();
-  return (
-    <div
-      className={cn(
-        "min-w-full min-h-screen",
-        { "bg-orange-600": service === "allegro" },
-        { "bg-violet-800": service === "allegrolokalnie" },
-        { "bg-cyan-400": service === "olx" },
-      )}
-    >
-      {children}
-    </div>
-  );
+  return <div className={"mx-auto w-full md:w-2/3 lg:w-1/2"}>{children}</div>;
 };
