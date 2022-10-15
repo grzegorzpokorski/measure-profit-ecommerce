@@ -1,14 +1,16 @@
 type SubmitInputType = {
   value: string;
+  disabled: boolean;
 };
 
-export const SubmitInput = ({ value }: SubmitInputType) => {
+export const SubmitInput = ({ value, disabled }: SubmitInputType) => {
   return (
     <input
       type="submit"
       value={value}
+      disabled={disabled}
       className={
-        "p-2 bg-zinc-600 text-white hover:bg-zinc-700 focus:bg-zinc-700 disabled:bg-red-500 cursor-pointer"
+        "p-2 text-white bg-zinc-600 hover:bg-zinc-700 focus:bg-zinc-700 disabled:hover:bg-zinc-600 cursor-pointer disabled:cursor-not-allowed "
       }
     />
   );

@@ -134,7 +134,7 @@ export const Form = () => {
           }}
           ref={refSellingPrice}
         />
-        <SubmitInput value="oblicz" />
+        <SubmitInput value="oblicz" disabled={!validForm} />
         {result && (
           <>
             <p>Zysk kwotowo: {result.amount} PLN</p>
