@@ -1,9 +1,8 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { SelectInput } from "../inputs/SelectInput";
 import { SubmitInput } from "../inputs/SubmitInput";
 import { TextInput } from "../inputs/TextInput";
-
-export const floatValidationPattern = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/;
+import { floatValidationPattern } from "../utils/regexpPatterns";
 
 export type ValidFieldsType = {
   fee: boolean;
@@ -36,30 +35,35 @@ export const Form = () => {
 
   const [result, setResult] = useState<{ amount: number; percentage: number } | null>(null);
 
-  const handleSubmitForm = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmitForm = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
 
-    if (!validForm) return;
+      if (!validForm) return;
 
-    const calculation =
-      Number(refSellingPrice.current?.value) -
-      Number(refPurchasePrice.current?.value) -
-      ((Number(refSellingPrice.current?.value) + Number(refShipment.current?.value)) *
-        Number(refFee.current?.value)) /
-        100;
+      const calculation =
+        Number(refSellingPrice.current?.value) -
+        Number(refPurchasePrice.current?.value) -
+        ((Number(refSellingPrice.current?.value) + Number(refShipment.current?.value)) *
+          Number(refFee.current?.value)) /
+          100;
 
-    setResult({
-      amount: Number(calculation.toFixed(2)),
-      percentage: Number(
-        ((calculation / Number(refPurchasePrice.current?.value)) * 100).toFixed(2),
-      ),
-    });
-  };
+      setResult({
+        amount: Number(calculation.toFixed(2)),
+        percentage: Number(
+          ((calculation / Number(refPurchasePrice.current?.value)) * 100).toFixed(2),
+        ),
+      });
+    },
+    [validForm],
+  );
 
   return (
     <form className={"flex flex-col m-4 bg-zinc-400"} onSubmit={handleSubmitForm}>
       <fieldset className={"flex flex-col gap-4 p-8 drop-shadow-md"}>
-        <h3 className="sr-only">Oblicz profit ze sprzedaży</h3>
+        <h3 className="font-medium border-b-2 border-white text-center pb-4">
+          Oblicz profit ze sprzedaży urządzeń wskazujących
+        </h3>
         <SelectInput
           name="fee"
           label="Wybierz serwis aukcyjny:"
@@ -71,15 +75,15 @@ export const Form = () => {
           }}
           options={[
             {
-              label: "allegro",
+              label: "allegro [6%]",
               value: 6,
             },
             {
-              label: "allegrolokalnie",
+              label: "allegrolokalnie [4.9%]",
               value: 4.9,
             },
             {
-              label: "olx",
+              label: "olx [0%]",
               value: 0,
             },
           ]}
@@ -136,10 +140,10 @@ export const Form = () => {
         />
         <SubmitInput value="oblicz" disabled={!validForm} />
         {result && (
-          <>
+          <div className="flex flex-col">
             <p>Zysk kwotowo: {result.amount} PLN</p>
             <p>Zysk procentowo: {result.percentage} %</p>
-          </>
+          </div>
         )}
       </fieldset>
     </form>
