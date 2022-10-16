@@ -2,7 +2,7 @@ import { Dispatch, forwardRef, RefObject, SetStateAction, useState } from "react
 import { ValidFieldsType } from "../form/Form";
 
 export type FeeType = {
-  label: "allegro" | "allegrolokalnie" | "olx";
+  label: "allegro [6%]" | "allegrolokalnie [4.9%]" | "olx [0%]";
   value: 6 | 4.9 | 0;
 };
 
