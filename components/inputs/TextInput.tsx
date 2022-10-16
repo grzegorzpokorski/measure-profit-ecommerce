@@ -27,6 +27,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         validation.setValidFields({ ...validation.validFields, [target.name]: false });
         setShowError(true);
       }
+
       if (!isValid) {
         validation.setValidFields({ ...validation.validFields, [target.name]: true });
         setShowError(false);
