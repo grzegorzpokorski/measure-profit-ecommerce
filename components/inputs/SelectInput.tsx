@@ -1,10 +1,27 @@
 import { Dispatch, forwardRef, RefObject, SetStateAction, useState } from "react";
 import { ValidFieldsType } from "../form/Form";
 
-export type FeeType = {
-  label: "allegro [6%]" | "allegrolokalnie [4.9%]" | "olx [0%]";
-  value: 6 | 4.9 | 0;
+// export type FeeType = {
+//   label: "allegro" | "allegrolokalnie" | "olx";
+//   value: 6 | 4.9 | 0;
+// };
+
+type AllegroFeeType = {
+  label: "allegro";
+  value: 6;
 };
+
+type AllegroLokalnieFeeType = {
+  label: "allegrolokalnie";
+  value: 4.9;
+};
+
+type OlxFeeType = {
+  label: "olx";
+  value: 0;
+};
+
+export type FeeType = AllegroFeeType | AllegroLokalnieFeeType | OlxFeeType;
 
 export type ShipmentType = {
   label: "nie dotyczy [0.00]" | "inpost paczkomat [8.99]" | "inport kurier [10.95]";

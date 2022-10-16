@@ -75,15 +75,15 @@ export const Form = () => {
           }}
           options={[
             {
-              label: "allegro [6%]",
+              label: "allegro",
               value: 6,
             },
             {
-              label: "allegrolokalnie [4.9%]",
+              label: "allegrolokalnie",
               value: 4.9,
             },
             {
-              label: "olx [0%]",
+              label: "olx",
               value: 0,
             },
           ]}
