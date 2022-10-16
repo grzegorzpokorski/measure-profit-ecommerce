@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
-import { SelectInput } from "../inputs/SelectInput";
+import { FeeType, SelectInput, ShipmentType } from "../inputs/SelectInput";
 import { SubmitInput } from "../inputs/SubmitInput";
 import { TextInput } from "../inputs/TextInput";
 import { floatValidationPattern } from "../utils/regexpPatterns";
@@ -73,7 +73,7 @@ export const Form = () => {
             setValidFields: setValidFields,
             validFields: validFields,
           }}
-          options={[
+          options={Array<FeeType>(
             {
               label: "allegro",
               value: 6,
@@ -86,7 +86,7 @@ export const Form = () => {
               label: "olx",
               value: 0,
             },
-          ]}
+          )}
           ref={refFee}
         />
         <SelectInput
@@ -98,7 +98,7 @@ export const Form = () => {
             setValidFields: setValidFields,
             validFields: validFields,
           }}
-          options={[
+          options={Array<ShipmentType>(
             {
               label: "nie dotyczy [0.00]",
               value: 0,
@@ -111,7 +111,7 @@ export const Form = () => {
               label: "inport kurier [10.95]",
               value: 10.95,
             },
-          ]}
+          )}
           ref={refShipment}
         />
         <TextInput
