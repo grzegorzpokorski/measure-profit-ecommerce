@@ -65,7 +65,7 @@ export const Form = () => {
           label="Wybierz serwis aukcyjny:"
           validation={{
             pattern: floatValidationPattern,
-            message: "Upewnij się, że wprowadzono liczbę",
+            message: "Upewnij się, że wprowadzono dodatnią liczbę.",
             setValidFields: setValidFields,
             validFields: validFields,
           }}
@@ -90,7 +90,7 @@ export const Form = () => {
           label="Typ wysyłki:"
           validation={{
             pattern: floatValidationPattern,
-            message: "Upewnij się, że wprowadzono liczbę",
+            message: "Upewnij się, że wprowadzono dodatnią liczbę.",
             setValidFields: setValidFields,
             validFields: validFields,
           }}
@@ -116,7 +116,7 @@ export const Form = () => {
           label="Cena zakupu:"
           validation={{
             pattern: floatValidationPattern,
-            message: "Upewnij się, że wprowadzono dodatnią liczbę",
+            message: "Upewnij się, że wprowadzono dodatnią liczbę.",
             setValidFields: setValidFields,
             validFields: validFields,
           }}
@@ -128,7 +128,7 @@ export const Form = () => {
           label="Cena sprzedazy:"
           validation={{
             pattern: floatValidationPattern,
-            message: "Upewnij się, że wprowadzono dodatnią liczbę",
+            message: "Upewnij się, że wprowadzono dodatnią liczbę.",
             setValidFields: setValidFields,
             validFields: validFields,
           }}

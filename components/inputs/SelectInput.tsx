@@ -50,6 +50,7 @@ export const SelectInput = forwardRef<HTMLSelectElement, SelectInputProps>(
           id={inputId}
           ref={ref}
           onChange={(e) => handleChange(e.target)}
+          aria-describedby={`${name}-hint`}
           className={"p-2"}
         >
           {options &&
@@ -59,7 +60,7 @@ export const SelectInput = forwardRef<HTMLSelectElement, SelectInputProps>(
               </option>
             ))}
         </select>
-        {showError && <p>{validation.message}</p>}
+        {showError && <p id={`${name}-hint`}>{validation.message}</p>}
       </div>
     );
   },

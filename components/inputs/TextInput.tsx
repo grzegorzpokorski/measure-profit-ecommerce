@@ -42,9 +42,10 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           id={inputId}
           ref={ref}
           onChange={(e) => handleChange(e.target)}
+          aria-describedby={`${name}-hint`}
           className={"p-2"}
         />
-        {showError && <p>{validation.message}</p>}
+        {showError && <p id={`${name}-hint`}>{validation.message}</p>}
       </div>
     );
   },
