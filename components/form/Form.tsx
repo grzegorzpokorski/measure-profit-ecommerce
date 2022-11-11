@@ -76,7 +76,7 @@ export const Form = () => {
           options={Array<FeeType>(
             {
               label: "allegro",
-              value: 6,
+              value: 6.5,
             },
             {
               label: "allegrolokalnie",

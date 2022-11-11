@@ -3,7 +3,7 @@ import { ValidFieldsType } from "../form/Form";
 
 type AllegroFeeType = {
   label: "allegro";
-  value: 6;
+  value: 6.5;
 };
 
 type AllegroLokalnieFeeType = {
