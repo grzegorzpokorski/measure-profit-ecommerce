@@ -24,8 +24,8 @@ type NieDotyczyShipmentType = {
 };
 
 type PaczkomatShipmentType = {
-  label: "inpost paczkomat [8.99]";
-  value: 8.99;
+  label: "inpost paczkomat [9.99]";
+  value: 9.99;
 };
 
 type KurierShipmentType = {

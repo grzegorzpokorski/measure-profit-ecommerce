@@ -104,8 +104,8 @@ export const Form = () => {
               value: 0,
             },
             {
-              label: "inpost paczkomat [8.99]",
-              value: 8.99,
+              label: "inpost paczkomat [9.99]",
+              value: 9.99,
             },
             {
               label: "inport kurier [10.95]",
